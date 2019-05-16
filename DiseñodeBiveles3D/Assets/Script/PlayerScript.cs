@@ -61,7 +61,12 @@ public class PlayerScript : MonoBehaviour
             movement += l_Right;
         else if (Input.GetKey(m_LeftKeyCode))
             movement -= l_Right;
-
+        ///*
+        if (Input.GetKey(m_JumpKeyCode))
+            movement += Vector3.up;
+        else if (Input.GetKey(KeyCode.LeftShift))
+            movement += Vector3.down;
+        //*/
         movement.Normalize();
 
         movement = movement * Time.deltaTime * speed;
@@ -69,7 +74,7 @@ public class PlayerScript : MonoBehaviour
 
         CollisionFlags l_CollisionFlags = characterController.Move(movement);
 
-        verticalSpeed += Physics.gravity.y * Time.deltaTime * 5f;
+        /*verticalSpeed += Physics.gravity.y * Time.deltaTime * 5f;
 
         if (onGround)
             verticalSpeed = 0;
@@ -97,7 +102,7 @@ public class PlayerScript : MonoBehaviour
         if ((l_CollisionFlags & CollisionFlags.Above) != 0 && verticalSpeed > 0.0f)
         {
             verticalSpeed = 0.0f;
-        }
+        }*/
         #endregion
 
         #region giro
