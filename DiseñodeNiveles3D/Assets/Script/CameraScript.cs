@@ -7,8 +7,8 @@ public class CameraScript : MonoBehaviour
 
     private float m_YawRotationSpeed = 100;
     private float m_PitchRotationalSpeed = 100;
-    private float m_MinPitch = -60.0f;
-    private float m_MaxPitch = 30.0f;
+    private float m_MinPitch = 0f;
+    private float m_MaxPitch = 50;
     public float m_OffsetOnCollision = 2;
     public Transform m_LookAt;
     public float m_DistanceToLookAt = 15;

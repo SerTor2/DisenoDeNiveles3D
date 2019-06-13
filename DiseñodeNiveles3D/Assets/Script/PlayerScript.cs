@@ -14,10 +14,10 @@ public class PlayerScript : MonoBehaviour
     public KeyCode m_UpKeyCode = KeyCode.W;
     public KeyCode m_DownKeyCode = KeyCode.S;
     public KeyCode m_JumpKeyCode = KeyCode.Space;
-    private float speed = 10;
-    private float speedJump = 100;
-    private float verticalSpeed;
-    private bool onGround = false;
+    private float speed = 15;
+    private float speedJump = 20;
+    public float verticalSpeed;
+    public bool onGround = false;
     private SphereCollider tiggerGiro;
     private float timeGiro = 0.5f;
     private float currentTime = 0;
@@ -41,6 +41,7 @@ public class PlayerScript : MonoBehaviour
         m_Pitch = transform.localRotation.eulerAngles.x;
         RespawnPosition = gameObject.transform.position;
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
 
         GameObject[] enemiesP = GameObject.FindGameObjectsWithTag("PatrolEnemie");
         foreach(GameObject go in enemiesP)
@@ -94,7 +95,13 @@ public class PlayerScript : MonoBehaviour
 
         movement = movement * Time.deltaTime * speed;
         //...
-        gameObject.transform.forward = new Vector3(movement.x, 0, movement.z);
+        if(movement.x !=0  && movement.z != 0)
+            gameObject.transform.forward = new Vector3(movement.x, 0, movement.z);
+        if (gameObject.transform.parent == null)
+            gameObject.transform.localScale = Vector3.one;
+        else
+            gameObject.transform.localScale = new Vector3(0.25f,1,1);
+
         CollisionFlags l_CollisionFlags = characterController.Move(movement);
 
         verticalSpeed += Physics.gravity.y * Time.deltaTime * 5f;
@@ -158,15 +165,13 @@ public class PlayerScript : MonoBehaviour
         onGround = false;
         verticalSpeed = 0;
         movement = Vector3.zero;
-        verticalSpeed += Physics.gravity.y * Time.deltaTime * -speedJump * _multiply;
+        verticalSpeed += speedJump * _multiply;
         movement.y = verticalSpeed * Time.deltaTime;
-        CollisionFlags l_CollisionFlags = characterController.Move(movement);
     }
 
     public void MovePlayerWithAncla(Vector3 _move)
     {
         verticalSpeed = 0;
-        CollisionFlags collisionflags = characterController.Move(_move);
     }
 
 
@@ -176,7 +181,7 @@ public class PlayerScript : MonoBehaviour
         {
             if (hit.gameObject.transform.position.y + 1 < gameObject.transform.position.y)
             {
-                Jump(1.1f);
+                Jump(1.05f);
                 hit.gameObject.GetComponent<BoxScript>().DestroyBox();
             }
             else if(hit.gameObject.transform.position.y -1 > gameObject.transform.position.y)
@@ -230,7 +235,7 @@ public class PlayerScript : MonoBehaviour
     {
         RaycastHit l_RaycastHit;
         Ray l_Ray = new Ray(transform.position, Vector3.down);
-        if (Physics.Raycast(l_Ray, out l_RaycastHit, 2f, m_RaycastLayerMask.value))
+        if (Physics.Raycast(l_Ray, out l_RaycastHit, 1.5f, m_RaycastLayerMask.value))
         {
             if (l_RaycastHit.collider.gameObject.tag == "Ancla")
             {

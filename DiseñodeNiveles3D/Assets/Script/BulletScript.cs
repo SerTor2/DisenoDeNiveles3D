@@ -56,6 +56,6 @@ public class BulletScript : MonoBehaviour
         }
         else if(other.gameObject.tag != "TurretEnemie")
             Destroy(gameObject);
-        print(other.gameObject.tag);
+
     }
 }

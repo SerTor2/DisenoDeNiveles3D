@@ -5,7 +5,7 @@ using UnityEngine;
 public class TurretEnemie : MonoBehaviour
 {
     private float currentTime = 0;
-    private float cadencia = 3;
+    private float cadencia = 1.5f;
     private GameObject player;
     public GameObject bulletPrefab;
     // Start is called before the first frame update

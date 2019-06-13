@@ -27,6 +27,15 @@ public class PlataformaDesaparecible : MonoBehaviour
                 boxCollider.enabled = false;
                 renderer.enabled = false;
             }
+
+            if(currentTime >= 1.5f)
+            {
+                renderer.material.color = actualColor;
+                currentTime = 0;
+                dentro = false;
+                renderer.enabled = true;
+                boxCollider.enabled = true;
+            }
         }
     }
 

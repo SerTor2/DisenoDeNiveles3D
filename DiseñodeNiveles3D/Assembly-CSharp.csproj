@@ -60,15 +60,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Lava_Flowing_Shader\Scripts\ScrollingUVs_Layers.cs" />
     <Compile Include="Assets\Script\AnclaScript.cs" />
     <Compile Include="Assets\Script\BoxScript.cs" />
     <Compile Include="Assets\Script\BulletScript.cs" />
     <Compile Include="Assets\Script\CameraScript.cs" />
+    <Compile Include="Assets\Script\LavaScript.cs" />
     <Compile Include="Assets\Script\LifeUpScript.cs" />
     <Compile Include="Assets\Script\PatrolEnemie.cs" />
     <Compile Include="Assets\Script\PlataformaDesaparecible.cs" />
     <Compile Include="Assets\Script\PlayerScript.cs" />
     <Compile Include="Assets\Script\TurretEnemie.cs" />
+    <None Include="Assets\Lava_Flowing_Shader\Shaders\Unlit_Lava_Simple.shader" />
+    <None Include="Assets\Lava_Flowing_Shader\Shaders\Diffuse_Lava_Distort.shader" />
+    <None Include="Assets\Lava_Flowing_Shader\Shaders\Unlit_Lava_Distort.shader" />
+    <None Include="Assets\Lava_Flowing_Shader\Shaders\Unlit_Lava_Distort_Transparent.shader" />
+    <None Include="Assets\Lava_Flowing_Shader\ReadMe.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/Sergio Torres Rodriguez/Git/DisenoDeNiveles3D/DiseñodeNiveles3D/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>

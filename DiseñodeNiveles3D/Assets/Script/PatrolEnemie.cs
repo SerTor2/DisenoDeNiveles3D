@@ -5,8 +5,9 @@ using UnityEngine;
 public class PatrolEnemie : MonoBehaviour
 {
     private bool go = true;
-    private float unitsToGo = 8;
-    private float speed = 3f;
+    public Vector3 toGo = Vector3.left;
+    public float unitsToGo = 8;
+    public float speed = 3f;
     private Vector3 startPos;
     // Start is called before the first frame update
     void Start()
@@ -19,8 +20,8 @@ public class PatrolEnemie : MonoBehaviour
     {
         if(go)
         {
-            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, startPos + Vector3.left * unitsToGo, speed * Time.deltaTime );
-            if ((gameObject.transform.position - (startPos + Vector3.left * unitsToGo)).magnitude <= 0.05f)
+            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, startPos + toGo * unitsToGo, speed * Time.deltaTime );
+            if ((gameObject.transform.position - (startPos + toGo * unitsToGo)).magnitude <= 0.05f)
                 go = false;
         }
         else
