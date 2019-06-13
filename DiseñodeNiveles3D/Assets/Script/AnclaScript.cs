@@ -24,7 +24,7 @@ public class AnclaScript : MonoBehaviour
         if (go)
         {
             currentTime += Time.deltaTime;
-            if(currentTime >= 1)
+            if(currentTime >= 2)
             {
                 gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, posToGo.position, 50 * Time.deltaTime);
                 if((gameObject.transform.position - posToGo.position).magnitude <= 0.5)

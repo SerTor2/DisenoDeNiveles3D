@@ -217,8 +217,8 @@ CharacterController:
   serializedVersion: 2
   m_Height: 2
   m_Radius: 0.5
-  m_SlopeLimit: 20
-  m_StepOffset: 0.15
+  m_SlopeLimit: 30
+  m_StepOffset: 0.2
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
@@ -239,6 +239,8 @@ MonoBehaviour:
   m_UpKeyCode: 119
   m_DownKeyCode: 115
   m_JumpKeyCode: 32
+  verticalSpeed: 0
+  onGround: 0
   girando: 0
   m_RaycastLayerMask:
     serializedVersion: 2
@@ -266,9 +268,9 @@ Animation:
   m_GameObject: {fileID: 7073619688484045523}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 2e6b0bfbfec41a74c9c0f02748c910e6, type: 2}
+  m_Animation: {fileID: 0}
   m_Animations:
-  - {fileID: 7400000, guid: 2e6b0bfbfec41a74c9c0f02748c910e6, type: 2}
+  - {fileID: 0}
   m_WrapMode: 0
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
