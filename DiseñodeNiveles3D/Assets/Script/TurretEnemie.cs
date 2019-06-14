@@ -8,9 +8,11 @@ public class TurretEnemie : MonoBehaviour
     private float cadencia = 1.5f;
     private GameObject player;
     public GameObject bulletPrefab;
+    private Animator animator;
     // Start is called before the first frame update
     void Start()
     {
+        animator = gameObject.GetComponent<Animator>();
         player = GameObject.FindWithTag("Player");
     }
 
@@ -21,9 +23,11 @@ public class TurretEnemie : MonoBehaviour
         {
             if ((player.gameObject.transform.position - gameObject.transform.position).magnitude <= 15)
             {
+
                 currentTime += Time.deltaTime;
                 if(currentTime >= cadencia)
                 {
+                    animator.SetTrigger("Shoot");
                     Instantiate(bulletPrefab, gameObject.transform.position, bulletPrefab.transform.rotation).GetComponent<BulletScript>().SetForwrd((player.transform.position - gameObject.transform.position).normalized); ;
                     currentTime -= cadencia;
                 }

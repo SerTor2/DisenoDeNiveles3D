@@ -19,7 +19,7 @@ public class PlayerScript : MonoBehaviour
     public float verticalSpeed;
     public bool onGround = false;
     private SphereCollider tiggerGiro;
-    private float timeGiro = 0.5f;
+    private float timeGiro = 0.35f;
     private float currentTime = 0;
     public bool girando = false;
     public LayerMask m_RaycastLayerMask;
@@ -30,12 +30,11 @@ public class PlayerScript : MonoBehaviour
     private List<BoxScript> boxes = new List<BoxScript>();
     public GameObject myCamera;
     private GameObject[] monedas;
-    private Animation animation;
+    public Animator animator;
     public LavaScript lava;
     // Start is called before the first frame update
     void Awake()
     {
-        animation = GetComponent<Animation>();
         tiggerGiro = GetComponent<SphereCollider>();
         characterController = GetComponent<CharacterController>();
         m_Yaw = transform.rotation.eulerAngles.y;
@@ -97,8 +96,15 @@ public class PlayerScript : MonoBehaviour
 
         movement = movement * Time.deltaTime * speed;
         //...
-        if(movement.x !=0  && movement.z != 0)
+        if (movement.x != 0 || movement.z != 0)
+        {
+            animator.SetBool("Movement", true);
             gameObject.transform.forward = new Vector3(movement.x, 0, movement.z);
+        }
+        else
+        {
+            animator.SetBool("Movement", false);
+        }
         if (gameObject.transform.parent == null)
             gameObject.transform.localScale = Vector3.one;
         else
@@ -110,6 +116,9 @@ public class PlayerScript : MonoBehaviour
 
         if (onGround)
             verticalSpeed = 0;
+        else
+            animator.SetBool("OnGround", onGround);
+
 
         if (onGround && Input.GetKey(m_JumpKeyCode))
         {
@@ -126,6 +135,7 @@ public class PlayerScript : MonoBehaviour
         if ((l_CollisionFlags & CollisionFlags.Below) != 0 && verticalSpeed <= 0)
         {
             onGround = true;
+            animator.SetBool("OnGround", onGround);
             verticalSpeed = 0.0f;
         }
         else
@@ -140,7 +150,7 @@ public class PlayerScript : MonoBehaviour
         #region giro
         if (Input.GetMouseButtonDown(0) && !girando)
         {
-
+            animator.SetTrigger("Giro");
             girando = true;
             tiggerGiro.enabled = girando;
         }
@@ -164,6 +174,7 @@ public class PlayerScript : MonoBehaviour
 
     public void Jump(float _multiply = 1)
     {
+        animator.SetTrigger("Jump");
         onGround = false;
         verticalSpeed = 0;
         movement = Vector3.zero;
