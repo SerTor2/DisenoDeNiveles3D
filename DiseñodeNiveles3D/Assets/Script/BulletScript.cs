@@ -46,7 +46,7 @@ public class BulletScript : MonoBehaviour
             }
             else
             {
-                print("matar");
+                player.Respawn();
             }
         }
         else if (other.gameObject.tag == "TurretEnemie" && changed)

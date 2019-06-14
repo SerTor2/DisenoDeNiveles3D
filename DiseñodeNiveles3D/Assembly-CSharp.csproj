@@ -65,11 +65,13 @@
     <Compile Include="Assets\Script\BoxScript.cs" />
     <Compile Include="Assets\Script\BulletScript.cs" />
     <Compile Include="Assets\Script\CameraScript.cs" />
+    <Compile Include="Assets\Script\CheckPointScript.cs" />
     <Compile Include="Assets\Script\LavaScript.cs" />
     <Compile Include="Assets\Script\LifeUpScript.cs" />
     <Compile Include="Assets\Script\PatrolEnemie.cs" />
     <Compile Include="Assets\Script\PlataformaDesaparecible.cs" />
     <Compile Include="Assets\Script\PlayerScript.cs" />
+    <Compile Include="Assets\Script\RotationObjectScript.cs" />
     <Compile Include="Assets\Script\TurretEnemie.cs" />
     <None Include="Assets\Lava_Flowing_Shader\Shaders\Unlit_Lava_Simple.shader" />
     <None Include="Assets\Lava_Flowing_Shader\Shaders\Diffuse_Lava_Distort.shader" />

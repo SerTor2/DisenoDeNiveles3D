@@ -44,7 +44,7 @@ public class TurretEnemie : MonoBehaviour
             }
             else
             {
-                print("matar");
+                player.Respawn();
             }
         }
     }

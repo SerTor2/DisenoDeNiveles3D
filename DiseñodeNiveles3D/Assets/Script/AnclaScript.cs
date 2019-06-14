@@ -64,8 +64,8 @@ public class AnclaScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Player")
-        print("matar");
+        if (other.gameObject.tag == "Player")
+            other.gameObject.GetComponent<PlayerScript>().Respawn();
     }
 
     public void SetPlayer(PlayerScript _player)

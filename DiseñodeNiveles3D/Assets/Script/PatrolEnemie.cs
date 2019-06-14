@@ -43,7 +43,7 @@ public class PatrolEnemie : MonoBehaviour
             }
             else
             {
-                print("matar");
+                player.Respawn();
             }
         }
     }

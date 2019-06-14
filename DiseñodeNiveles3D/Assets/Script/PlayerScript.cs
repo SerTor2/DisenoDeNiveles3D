@@ -14,7 +14,7 @@ public class PlayerScript : MonoBehaviour
     public KeyCode m_UpKeyCode = KeyCode.W;
     public KeyCode m_DownKeyCode = KeyCode.S;
     public KeyCode m_JumpKeyCode = KeyCode.Space;
-    private float speed = 15;
+    private float speed = 13;
     private float speedJump = 20;
     public float verticalSpeed;
     public bool onGround = false;
@@ -31,6 +31,7 @@ public class PlayerScript : MonoBehaviour
     public GameObject myCamera;
     private GameObject[] monedas;
     private Animation animation;
+    public LavaScript lava;
     // Start is called before the first frame update
     void Awake()
     {
@@ -91,6 +92,7 @@ public class PlayerScript : MonoBehaviour
         else if (Input.GetKey(m_LeftKeyCode))
             movement -= l_Right;
 
+        movement = new Vector3(movement.x, 0, movement.z);
         movement.Normalize();
 
         movement = movement * Time.deltaTime * speed;
@@ -138,7 +140,7 @@ public class PlayerScript : MonoBehaviour
         #region giro
         if (Input.GetMouseButtonDown(0) && !girando)
         {
-            animation.Play();
+
             girando = true;
             tiggerGiro.enabled = girando;
         }
@@ -181,7 +183,7 @@ public class PlayerScript : MonoBehaviour
         {
             if (hit.gameObject.transform.position.y + 1 < gameObject.transform.position.y)
             {
-                Jump(1.05f);
+                Jump(hit.gameObject.GetComponent<BoxScript>().salto);
                 hit.gameObject.GetComponent<BoxScript>().DestroyBox();
             }
             else if(hit.gameObject.transform.position.y -1 > gameObject.transform.position.y)
@@ -198,9 +200,12 @@ public class PlayerScript : MonoBehaviour
         {
             if (hit.gameObject.transform.position.y + 1 < gameObject.transform.position.y)
             {
+                hit.gameObject.GetComponent<CheckPointScript>().Change();
                 foreach (BoxScript box in boxes)
                     box.SaveBox();
                 RespawnPosition = hit.gameObject.transform.position + hit.gameObject.transform.forward * 2;
+                lava.checkPoint();
+
             }
         }
 
@@ -225,9 +230,16 @@ public class PlayerScript : MonoBehaviour
 
         if(other.gameObject.tag == "CheckPoint" && girando)
         {
+            other.gameObject.GetComponent<CheckPointScript>().Change();
             foreach (BoxScript box in boxes)
                 box.SaveBox();
             RespawnPosition = other.gameObject.transform.position + other.gameObject.transform.forward * 2;
+            lava.checkPoint();
+        }
+
+        if(other.gameObject.tag == "NextPlane")
+        {
+            lava.NextPoint();
         }
     }
 
@@ -262,8 +274,11 @@ public class PlayerScript : MonoBehaviour
 
     public void Respawn()
     {
+        lava.Respawn();
         ModifieLife(-1);
+        characterController.enabled = false;
         gameObject.transform.position = RespawnPosition;
+        characterController.enabled = true;
 
         foreach (GameObject go in monedas)
             go.SetActive(true);
@@ -279,6 +294,8 @@ public class PlayerScript : MonoBehaviour
 
         foreach (BoxScript box in boxes)
             box.Respawn();
+
+        myCamera.GetComponent<CameraScript>().Respawn();
     }
 
     public void ModifieLife(int _num)

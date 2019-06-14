@@ -19,10 +19,13 @@ public class CameraScript : MonoBehaviour
     private float m_timer = 0;
     private bool collisioning = false;
     private Vector3 posCollision;
+    private Vector3 posIni;
+    private Quaternion rotIni;
     // Start is called before the first frame update
     void Start()
     {
-       
+        posIni = gameObject.transform.position;
+        rotIni = gameObject.transform.rotation;
     }
 
     // Update is called once per frame
@@ -70,6 +73,12 @@ public class CameraScript : MonoBehaviour
 
         transform.forward = l_Direction;
         transform.position = l_DesiredPosition;
+    }
+
+    public void Respawn()
+    {
+        gameObject.transform.position = posIni;
+        gameObject.transform.rotation = rotIni;
     }
 }
 

@@ -10,9 +10,12 @@ public class BoxScript : MonoBehaviour
     private MeshRenderer renderer;
     private bool destroyed = false;
     private bool saved = false;
+    public float salto = 0.6f;
+    private Vector3 startPos;
     // Start is called before the first frame update
     void Start()
     {
+        startPos = gameObject.transform.position;
         boxCollider = GetComponent<BoxCollider>();
         renderer = GetComponent<MeshRenderer>();
         rb = GetComponent<Rigidbody>();
@@ -35,21 +38,19 @@ public class BoxScript : MonoBehaviour
     }
     public void DestroyBox()
     {
+        if (gravity)
+        {
+            rb.useGravity = false;
+            rb.isKinematic = false;
+        }
+        else
+        {
+            rb.useGravity = false;
+            rb.isKinematic = false;
+        }
         renderer.enabled = false;
         boxCollider.enabled = false;
         destroyed = true;
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.tag == "Player")
-        {
-            if(collision.gameObject.transform.position.y < gameObject.transform.position.y + 1)
-            {
-                DestroyBox();
-            }
-
-        }
     }
 
     public void SaveBox()
@@ -63,9 +64,20 @@ public class BoxScript : MonoBehaviour
     {
         if(!saved)
         {
+            gameObject.transform.position = startPos;
             renderer.enabled = true;
             boxCollider.enabled = true;
             destroyed = false;
+            if (gravity)
+            {
+                rb.useGravity = true;
+                rb.isKinematic = false;
+            }
+            else
+            {
+                rb.useGravity = false;
+                rb.isKinematic = true;
+            }
         }
     }
 }
